@@ -23,7 +23,6 @@ namespace Experimental
         public int Run()
         {
             _logger.LogInformation("Starting application.");
-            Console.WriteLine($"{_config["appsettings:key"]}");
 
 
             _logger.LogInformation("Shutting down application.");
