@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Experimental.Services
 {
-    internal interface IPythonService
+    public interface IPythonService
     {
     }
 }
