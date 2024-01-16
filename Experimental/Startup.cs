@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,10 @@ namespace Experimental
 
         public ServiceProvider ConfigureServices(ServiceCollection services, IConfigurationRoot configRoot)
         {
+            services.AddLogging(builder =>
+            {
+                builder.AddConsole();
+            });
             services.AddSingleton(configRoot);
             services.AddSingleton<App>();
             return services.BuildServiceProvider();
