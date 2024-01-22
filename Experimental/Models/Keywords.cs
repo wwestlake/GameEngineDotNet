@@ -13,6 +13,7 @@ namespace Experimental.Models
         private List<string> _verbs = new List<string>();
         private List<string> _nouns = new List<string>();
         private List<string> _connectors = new List<string>();
+        private List<string> _punctuation = new List<string>();
 
         public Keywords()
         {
@@ -40,12 +41,12 @@ namespace Experimental.Models
                     result.Add(token.Value);
                 } else
                 {
-                    errors.Add(token.Errors.ToString());
+                    errors.Add(token.Errors.FirstOrDefault().Message);
                     isError = true;
                 }
             }
             if (! isError) { return Result.Ok(result); }
-            return Result.Fail(errors.ToString());
+            return Result.Fail(errors.Concatenate());
         }
 
 
@@ -72,6 +73,15 @@ namespace Experimental.Models
             if (!_connectors.Contains(connector))
             {
                 _connectors.Add(connector);
+            }
+            return this;
+        }
+
+        public Keywords AddPunctuation(string punc)
+        {
+            if (!_punctuation.Contains(punc))
+            {
+                _punctuation.Add(punc);
             }
             return this;
         }
