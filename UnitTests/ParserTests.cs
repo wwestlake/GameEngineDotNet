@@ -4,7 +4,7 @@ using Experimental.Models;
 
 namespace UnitTests
 {
-    public class Tests
+    public class ParserTests
     {
         private static Keywords _keywords = new Keywords();
 
@@ -24,7 +24,7 @@ namespace UnitTests
         [Test]
         public void Keywords_tokenizes_simple_command()
         {
-            var command = "go to west; go to north; @ exit";
+            var command = "go to west; go to north; exit";
 
             var tokens = _keywords.Tokenize(command);
 

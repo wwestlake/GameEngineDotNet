@@ -8,7 +8,9 @@ namespace Experimental.Utilities
 {
     public static class StringUtilities
     {
-        private static char[] _ws = new char[] { ' ', '\n', '\r', '\t', ';', '@' }; 
+        private static char[] _ws = new char[] { ' ', '\n', '\r', '\t' };
+        private static char[] _delim = new char[] { ';' };
+
 
         public static string Normalize(this string s)
         {
@@ -20,6 +22,13 @@ namespace Experimental.Utilities
             var words = s.Split(_ws, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
             return new List<string>(words);
         }
+
+        public static List<string> SplitOnSemicolon(this string s)
+        {
+            var words = s.Split(_delim, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            return new List<string>(words);
+        }
+
 
         public static string Concatenate(this List<string> list, string delim = ", ")
         {

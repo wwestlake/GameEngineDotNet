@@ -29,20 +29,30 @@ namespace Experimental.Models
         
         public Result<List<Token>> Tokenize(string command)
         {
-            var normalized = command.Normalize()?.SplitOnWhiteSpace();
+            var normalized = command.Normalize()?.SplitOnSemicolon();
+            var commands = new List<List<string>>();
+
+            foreach (var cmd in normalized)
+            { 
+                commands.Add(cmd.SplitOnWhiteSpace());
+            }
             var result = new List<Token>();
             var errors = new List<string>();
             bool isError = false;
-            foreach (var word in normalized)
+            foreach (var cmd in commands)
             {
-                var token = GetToken(word);
-                if (token.IsSuccess)
+                foreach (var word in cmd)
                 {
-                    result.Add(token.Value);
-                } else
-                {
-                    errors.Add(token.Errors.FirstOrDefault().Message);
-                    isError = true;
+                    var token = GetToken(word);
+                    if (token.IsSuccess)
+                    {
+                        result.Add(token.Value);
+                    }
+                    else
+                    {
+                        errors.Add(token.Errors.FirstOrDefault().Message);
+                        isError = true;
+                    }
                 }
             }
             if (! isError) { return Result.Ok(result); }
